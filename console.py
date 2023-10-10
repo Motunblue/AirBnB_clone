@@ -2,18 +2,34 @@
 """
     Contains the Console class for the project
 """
+import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """The command interpreter"""
-    def do_quit(self):
-        """Exit the interpreter on encounter with quit command"""
+    """The command interpreter
+
+    Attributes:
+        prompt(str): The prompt to use for the interpreter
+    """
+    prompt = '(hbnb) '
+
+    def do_quit(self, arg):
+        """Quit command to exit the program"""
         return True
 
-    def do_EOF(self):
-        """CTRL-D to exit the interpreter"""
+    def help(self, arg):
+        """Help command"""
+        print("")
+
+    def do_EOF(self, arg):
+        """CTRL-D command to exit the interpreter"""
+        print("")
         return True
 
-    def help(self):
-        """
+    def emptyline(self, line):
+        """continue on encounter with an empty line + ENTER"""
+        pass
 
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
