@@ -23,6 +23,9 @@ class BaseModel():
                     v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
                 setattr(self, k, v)
 
+        storage.new(self)
+
+
     def __str__(self):
         """The class string function"""
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
@@ -30,7 +33,8 @@ class BaseModel():
     def save(self):
         """Updates the updated_at field"""
         self.updated_at = datetime.now()
-
+        storage.save()
+        
     def to_dict(self):
         """Returns dictionary representation of the class instance"""
         my_dict = {}
