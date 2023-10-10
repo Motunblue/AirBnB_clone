@@ -7,11 +7,20 @@ from datetime import datetime
 
 class BaseModel():
     """The base class"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """The instantiation method"""
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+        if kwargs:
+            for k, v in kwargs.items():
+                if (k == "__class__"):
+                    continue
+                if (k == "created_at"):
+                    v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                if (k == "updated_at"):
+                    v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                setattr(self, k, v)
 
     def __str__(self):
         """The class string function"""
@@ -29,7 +38,6 @@ class BaseModel():
                 v = v.isoformat()
 
             my_dict[k] = v
+        my_dict["__class__"] = self.__class__.__name__
 
         return my_dict
-
-
