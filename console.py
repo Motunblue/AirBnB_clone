@@ -5,6 +5,8 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import json
+
 
 class HBNBCommand(cmd.Cmd):
     """The command interpreter
@@ -80,6 +82,41 @@ class HBNBCommand(cmd.Cmd):
 
         print("** no instance found **")
 
+    def do_destroy(self, arg):
+        """ Deletes an instance based on the class name and id """
+        all_class = {
+                "BaseModel": BaseModel
+                }
+        my_dict = {}
+        arg_list = arg.split(" ")
+        cls_name = arg_list[0]
+        if not cls_name:
+            print("** class name missing **")
+            return
+
+        if cls_name not in all_class:
+            print("** class doesn't exist **")
+            return
+
+        cls_id = arg_list[1]
+        if not cls_id:
+            print("** instance id missing **")
+            return
+
+        storage.reload()
+        objs = storage.all()
+
+        key = "{}.{}".format(cls_name, cls_id)
+        try:
+            del objs[key]
+            for k, v in objs.items():
+                v = v.to_dict()
+                my_dict[k] = v
+
+            with open("file.json", "w", encoding="utf-8") as f:
+                json.dump(my_dict, f)
+        except KeyError:
+            print("** no instance found **")
 
 
 if __name__ == '__main__':
