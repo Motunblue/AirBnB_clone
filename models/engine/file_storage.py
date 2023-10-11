@@ -3,6 +3,7 @@
     Contains storage class
 """
 
+
 import json
 import os
 
@@ -42,8 +43,21 @@ class FileStorage:
     def reload(self):
         """Deserializes obj from path"""
         from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+        
         my_dict = {
-                "BaseModel": BaseModel
+                "BaseModel": BaseModel,
+                "User": User,
+                "State": State,
+                "City": City,
+                "Amenity": Amenity,
+                "Place": Place,
+                "Review": Review
                 }
 
         if os.path.exists(type(self).__file_path):
