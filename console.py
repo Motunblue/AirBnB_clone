@@ -4,6 +4,12 @@
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 import json
 
@@ -15,7 +21,13 @@ class HBNBCommand(cmd.Cmd):
         prompt(str): The prompt to use for the interpreter
     """
     all_class = {
-            "BaseModel": BaseModel
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
             }
     prompt = '(hbnb) '
 
