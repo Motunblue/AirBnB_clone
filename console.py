@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
             for v in my_dict.values():
                 v = str(v)
                 objs_list.append(v)
-            
+
         else:
             arg_list = arg.split(" ")
             cls_name = arg_list[0]
@@ -189,10 +189,6 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
         else:
             print("** no instance found **")
-
-
-
-
 
 
 if __name__ == '__main__':
