@@ -14,6 +14,9 @@ class HBNBCommand(cmd.Cmd):
     Attributes:
         prompt(str): The prompt to use for the interpreter
     """
+    all_class = {
+            "BaseModel": BaseModel
+            }
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
@@ -36,34 +39,28 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Create a new instance of models classes"""
         cls_name = arg.split(" ")[0]
-        all_class = {
-                "BaseModel": BaseModel
-                }
 
         if not cls_name:
             print("** class name missing **")
             return
 
-        if cls_name not in all_class:
+        if cls_name not in HBNBCommand.all_class:
             print("** class doesn't exist **")
             return
 
-        obj = all_class[cls_name]()
+        obj = HBNBCommand.all_class[cls_name]()
         obj.save()
         print(obj.id)
 
     def do_show(self, arg):
         """Print the string representation of an istance"""
-        all_class = {
-                "BaseModel": BaseModel
-                }
         arg_list = arg.split(" ")
         cls_name = arg_list[0]
         if not cls_name:
             print("** class name missing **")
             return
 
-        if cls_name not in all_class:
+        if cls_name not in HBNBCommand.all_class:
             print("** class doesn't exist **")
             return
 
@@ -84,9 +81,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """ Deletes an instance based on the class name and id """
-        all_class = {
-                "BaseModel": BaseModel
-                }
         my_dict = {}
         arg_list = arg.split(" ")
         cls_name = arg_list[0]
@@ -94,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if cls_name not in all_class:
+        if cls_name not in HBNBCommand.all_class:
             print("** class doesn't exist **")
             return
 
@@ -109,9 +103,7 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(cls_name, cls_id)
         try:
             del objs[key]
-            for k, v in objs.items():
-                v = v.to_dict()
-                my_dict[k] = v
+            storage.save()
 
             with open("file.json", "w", encoding="utf-8") as f:
                 json.dump(my_dict, f)
@@ -121,9 +113,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """Prints all string representation of all instances
             based or not on the class name"""
-        all_class = {
-                "BaseModel": BaseModel
-                }
+
         objs_list = []
         storage.reload()
         my_dict = storage.all()
@@ -136,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             arg_list = arg.split(" ")
             cls_name = arg_list[0]
-            if cls_name not in all_class:
+            if cls_name not in HBNBCommand.all_class:
                 print("** class doesn't exist **")
                 return
 
@@ -149,9 +139,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update or add an attribute to an instance"""
-        all_class = {
-                "BaseModel": BaseModel 
-                }
 
         arg_list = arg.split(" ")
         cls_name = arg_list[0]
@@ -159,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if cls_name not in all_class:
+        if cls_name not in HBNBCommand.all_class:
             print("** class doesn't exist **")
             return
 
