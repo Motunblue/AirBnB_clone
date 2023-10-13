@@ -5,6 +5,7 @@
 import unittest
 from models.base_model import BaseModel
 import datetime
+import uuid
 
 
 class TestBaseModelInstantiation(unittest.TestCase):
@@ -191,6 +192,102 @@ class TestBaseModelSave(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             b.save("2023-13-12")
+
+class TestBaseModelToDict(unittest.TestCase):
+    """Test the to_dict method of BaseModel"""
+    def test_no_arg(self):
+        """Test with no arg"""
+        b = BaseModel()
+        my_dict = b.to_dict()
+
+        self.assertIn("__class__", my_dict)
+        self.assertIn("created_at", my_dict)
+        self.assertIn("updated_at", my_dict)
+        self.assertIn("id", my_dict)
+        self.assertEqual(my_dict["__class__"], "BaseModel")
+        self.assertIsInstance(my_dict["__class__"], str)
+        self.assertIsInstance(my_dict["updated_at"], str)
+        self.assertIsInstance(my_dict["created_at"], str)
+        self.assertIsInstance(my_dict["id"], str)
+
+        b = BaseModel(name="Airbnb")
+        my_dict = b.to_dict()
+        self.assertIn("__class__", my_dict)
+        self.assertNotIn("created_at", my_dict)
+        self.assertNotIn("updated_at", my_dict)
+        self.assertNotIn("id", my_dict)
+        self.assertIn("name", my_dict)
+        self.assertEqual(my_dict["name"], "Airbnb")
+
+        b = BaseModel(__class__="Airbnb")
+        self.assertIn("__class__", my_dict)
+        self.assertEqual(my_dict["__class__"], "BaseModel")
+
+        b = BaseModel("Airbnb")
+        my_dict = b.to_dict()
+
+        self.assertIn("__class__", my_dict)
+        self.assertIn("created_at", my_dict)
+        self.assertIn("updated_at", my_dict)
+        self.assertIn("id", my_dict)
+        self.assertEqual(my_dict["__class__"], "BaseModel")
+        self.assertIsInstance(my_dict["__class__"], str)
+        self.assertIsInstance(my_dict["updated_at"], str)
+        self.assertIsInstance(my_dict["created_at"], str)
+        self.assertIsInstance(my_dict["id"], str)
+
+    def test_with_arg(self):
+        """Test to_dict with argument"""
+        b = BaseModel()
+
+        with self.assertRaises(TypeError):
+            my_dict = b.to_dict(23)
+
+    def test_after_setattr(self):
+        """Test to_dict after setattr"""
+        b = BaseModel()
+        my_dict = b.to_dict()
+
+        self.assertIn("__class__", my_dict)
+        self.assertIn("created_at", my_dict)
+        self.assertIn("updated_at", my_dict)
+        self.assertIn("id", my_dict)
+        self.assertNotIn("name", my_dict)
+
+        b.name = "Airbnb"
+        self.assertIn("__class__", my_dict)
+        self.assertIn("created_at", my_dict)
+        self.assertIn("updated_at", my_dict)
+        self.assertIn("id", my_dict)
+        self.assertNotIn("name", my_dict)
+
+        my_dict = b.to_dict()
+        self.assertIn("__class__", my_dict)
+        self.assertIn("created_at", my_dict)
+        self.assertIn("updated_at", my_dict)
+        self.assertIn("id", my_dict)
+        self.assertIn("name", my_dict)
+
+    def test_from_dict_repr(self):
+        """Test to_dict using another object dict repr"""
+        b = BaseModel()
+        b.name = "Airbnb"
+        my_dict1 = b.to_dict()
+        self.assertIn("name", my_dict1)
+
+        b1 = BaseModel(**my_dict1)
+        my_dict2 = b1.to_dict()
+        self.assertIn("__class__", my_dict2)
+        self.assertEqual(my_dict2["__class__"], "BaseModel")
+        self.assertIn("name", my_dict2)
+        self.assertEqual(my_dict2["name"], "Airbnb")
+
+        self.assertCountEqual(my_dict1, my_dict2)
+        self.assertEqual(my_dict1["created_at"], my_dict2["created_at"])
+        self.assertEqual(my_dict1["updated_at"], my_dict2["updated_at"])
+        self.assertDictEqual(my_dict1, my_dict2)
+
+
 
 
 if __name__ == '__main__':
