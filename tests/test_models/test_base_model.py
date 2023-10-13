@@ -44,19 +44,19 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertFalse(hasattr(b, "updated_at"))
         self.assertFalse(hasattr(b, "created_at"))
 
-        b = BaseModel(id=2, created_at=2023-10-13)
+        b = BaseModel(id=2, created_at="2023-10-13T18:33:54.505580")
         self.assertTrue(hasattr(b, "id"))
         self.assertEqual(b.id, 2)
         self.assertTrue(hasattr(b, "created_at"))
         self.assertFalse(hasattr(b, "updated_at"))
 
-        b = BaseModel(id=2, created_at="2023, 10, 13, 18, 33, 54, 505580", updated_at="2023, 10, 13, 18, 33, 54, 505580")
+        b = BaseModel(id=2, created_at="2023-10-13T18:33:54.505580", updated_at="2023-10-13T18:33:54.505580")
         self.assertTrue(hasattr(b, "id"))
         self.assertEqual(b.id, 2)
         self.assertTrue(hasattr(b, "created_at"))
         self.assertTrue(hasattr(b, "updated_at"))
         
-        b = BaseModel(id=2, created_at="2023, 10, 13, 18, 33, 54, 505580", updated_at="2023, 10, 13, 18, 33, 54, 505580", name="Airbnb")
+        b = BaseModel(id=2, created_at="2023-10-13T18:33:54.505580", updated_at="2023-10-13T18:33:54.505580", name="Airbnb")
         self.assertTrue(hasattr(b, "id"))
         self.assertEqual(b.id, 2)
         self.assertTrue(hasattr(b, "created_at"))
@@ -72,6 +72,126 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertEqual(b.first_name, "unittest")
         self.assertTrue(hasattr(b, "last_name"))
         self.assertEqual(b.last_name, "Airbnb")
+
+        b = BaseModel(first_name=("unittest, Airbnb"))
+        self.assertTrue(hasattr(b, "first_name"))
+        self.assertEqual(b.first_name, ("unittest, Airbnb"))
+
+        b = BaseModel(first_name=["unittest, Airbnb"])
+        self.assertTrue(hasattr(b, "first_name"))
+        self.assertEqual(b.first_name, ["unittest, Airbnb"])
+
+    def test_none_arg(self):
+        b = BaseModel(None)
+        self.assertTrue(hasattr(b, "updated_at"))
+        self.assertTrue(hasattr(b, "created_at"))
+        self.assertTrue(hasattr(b, "id"))
+
+        b = BaseModel(name=None)
+        self.assertFalse(hasattr(b, "updated_at"))
+        self.assertFalse(hasattr(b, "created_at"))
+        self.assertFalse(hasattr(b, "id"))
+
+    def test_inf_arg(self):
+        b= BaseModel(float('inf'))
+        self.assertTrue(hasattr(b, "updated_at"))
+        self.assertTrue(hasattr(b, "created_at"))
+        self.assertTrue(hasattr(b, "id"))
+
+        b = BaseModel(name=float('inf'))
+        self.assertFalse(hasattr(b, "updated_at"))
+        self.assertFalse(hasattr(b, "created_at"))
+        self.assertFalse(hasattr(b, "id"))
+
+    def test_nan_arg(self):
+        b= BaseModel(float('nan'))
+        self.assertTrue(hasattr(b, "updated_at"))
+        self.assertTrue(hasattr(b, "created_at"))
+        self.assertTrue(hasattr(b, "id"))
+
+        b = BaseModel(name=float('nan'))
+        self.assertFalse(hasattr(b, "updated_at"))
+        self.assertFalse(hasattr(b, "created_at"))
+        self.assertFalse(hasattr(b, "id"))
+
+    def test_setattr(self):
+        b = BaseModel()
+        b.name = "Airbnb"
+        self.assertTrue(hasattr(b, "updated_at"))
+        self.assertTrue(hasattr(b, "created_at"))
+        self.assertTrue(hasattr(b, "id"))
+        self.assertTrue(hasattr(b, "name"))
+
+
+class TestBaseModelStrMethod(unittest.TestCase):
+    """Tests the str method of BaseModel"""
+    def test_no_arg(self):
+        """Test with no argument"""
+        b = BaseModel()
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+    def test_pos_arg(self):
+        """Test str method with positional arguments"""
+        b = BaseModel(2)
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(None)
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(float('nan'))
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(float('inf'))
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+    def test_keyword_arg(self):
+        """Test str method with keyword instantiation"""
+        b = BaseModel(name="Airbnb")
+        with self.assertRaises(AttributeError):
+            self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(id="2")
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(id=2)
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel(id=[1, 2])
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}") 
+
+        b = BaseModel(id=(1, 2))
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+
+    def test_using_str(self):
+        """Test str method using __str__"""
+        b = BaseModel()
+        self.assertEqual(b.__str__(), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        b = BaseModel()
+        # Test __str__ with arguments
+        with self.assertRaises(TypeError):
+            self.assertEqual(b.__str__(23), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+class TestBaseModelSave(unittest.TestCase):
+    """Test the save method of BaseModel"""
+    def test_no_arg(self):
+        """Test with no arg"""
+        b = BaseModel()
+        t1 = b.updated_at
+
+        b.save()
+
+        t2 = b.updated_at
+        self.assertNotEqual(t1, t2)
+
+    def test_one_arg(self):
+        """Test with one arg"""
+        b = BaseModel()
+
+        with self.assertRaises(TypeError):
+            b.save("2023-13-12")
+
 
 if __name__ == '__main__':
     unittest.main()
