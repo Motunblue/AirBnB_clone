@@ -4,7 +4,6 @@
 """
 from models.review import Review
 from models.base_model import BaseModel
-import unittest
 
 
 class TestReviewInstantiation(unittest.TestCase):
