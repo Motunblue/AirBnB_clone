@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
     Unittests for module models/city,py
 """
@@ -11,4 +11,5 @@ class TestAmenityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
     def test_no_arg(self):
         """Test instantiation without argument"""
-        c = Amenity()
+        a = Amenity()
+    
