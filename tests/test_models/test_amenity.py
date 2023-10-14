@@ -4,8 +4,11 @@
 """
 from models.amenity import Amenity
 from models.base_model import BaseModel
+import unittest
 
 
 class TestAmenityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
-    c = Amenity()
+    def test_no_arg(self):
+        """Test instantiation without argument"""
+        c = Amenity()

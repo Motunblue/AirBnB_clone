@@ -4,8 +4,11 @@
 """
 from models.city import City
 from models.base_model import BaseModel
+import unittest
 
 
 class TestCityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
-    c = City()
+    def test_no_arg(self):
+        """Test with no arg"""
+        c = City()

@@ -4,8 +4,10 @@
 """
 from models.place import Place
 from models.base_model import BaseModel
-
+import unittest
 
 class TestPlaceInstantiation(unittest.TestCase):
     """Test instantiation of Place class"""
-    c = Place()
+    def test_no_arg(self):
+        """Test with no arg"""
+        c = Place()
