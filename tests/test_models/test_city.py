@@ -5,10 +5,38 @@
 from models.city import City
 from models.base_model import BaseModel
 import unittest
+import os
+from models import storage
+from models.engine.file_storage import FileStorage
 
 
 class TestCityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
-    def test_no_arg(self):
-        """Test with no arg"""
-        c = City()
+
+    def setUp(self):
+        """Reset the file"""
+        dict = storage.all()
+        dict.clear()
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
+    def test_no_args(self):
+        a = City()
+        self.assertIsInstance(a, City)
+        self.assertTrue(issubclass(type(a), BaseModel))
+        self.assertTrue(hasattr(a, "id"))
+        self.assertTrue(hasattr(a, "updated_at"))
+        self.assertTrue(hasattr(a, "created_at"))
+
+    def test_with_settr(self):
+        a = City()
+        a.name = "Lagos"
+        a.state_id = "+234LA"
+        self.assertTrue(hasattr(a, "name"))
+        self.assertEqual(a.name, "Lagos")
+        self.assertTrue(hasattr(a, "state_id"))
+        self.assertEqual(a.state_id, "+234LA")
+
+
+if __name__ == "__main__":
+    unittest.main()

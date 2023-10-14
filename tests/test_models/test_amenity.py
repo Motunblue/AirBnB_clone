@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    Unittests for module models/city,py
+    Unittests for module models/amenity.py
 """
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -11,7 +11,7 @@ from models.engine.file_storage import FileStorage
 
 
 class TestAmenityInstantiation(unittest.TestCase):
-    """Test instantiation of city class"""
+    """Test instantiation of Amenity class"""
 
     def setUp(self):
         """Reset the file"""
