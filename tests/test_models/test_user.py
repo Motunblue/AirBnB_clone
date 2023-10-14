@@ -5,9 +5,23 @@
 from models.user import User
 from models.base_model import BaseModel
 import unittest
+import datetime
+
 
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
+    def test_subclass_of(self):
+        """Test if instance is subclass of BaseModel"""
+        u = User()
+        self.assertIsInstance(u, BaseModel)
+        self.assertIsInstance(u, User)
+
     def test_no_arg(self):
         """Test without any argument"""
-        c = User()
+        u = User()
+        self.assertIn("created_at", u.__dict__)
+        self.assertIn("updated_at", u.__dict__)
+        self.assertIn("id", u.__dict__)
+        self.assertIsInstance(u.id, str)
+        self.assertIsInstance(u.created_at, datetime.datetime)
+        self.assertIsInstance(u.updated_at, datetime.datetime)
