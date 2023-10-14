@@ -34,5 +34,5 @@ class TestUserInstantiation(unittest.TestCase):
         u.first_name = "unittest"
         u.last_name = "Airbnb"
 
-        self.assertTrue(hasattr(u, "created_at"))
-        self.assertTrue(hasattr(u, "updated_at"))
+        self.assertTrue(hasattr("created_at", u))
+        self.assertTrue(hasattr("updated_at", u))
