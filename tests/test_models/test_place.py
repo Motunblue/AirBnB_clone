@@ -4,6 +4,7 @@
 """
 from models.place import Place
 from models.base_model import BaseModel
+import unittest
 
 
 class TestPlaceInstantiation(unittest.TestCase):
