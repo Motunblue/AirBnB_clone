@@ -44,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def emptyline(self, line):
+    def emptyline(self):
         """continue on encounter with an empty line + ENTER"""
         pass
 
