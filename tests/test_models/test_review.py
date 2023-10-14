@@ -2,9 +2,9 @@
 """
     Unittests for module models/review,py
 """
+import unittest
 from models.review import Review
 from models.base_model import BaseModel
-import unittest
 import os
 from models import storage
 from models.engine.file_storage import FileStorage

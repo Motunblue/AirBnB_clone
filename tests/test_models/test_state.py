@@ -2,9 +2,9 @@
 """
     Unittests for module models/city,py
 """
+import unittest
 from models.state import State
 from models.base_model import BaseModel
-import unittest
 import os
 from models import storage
 from models.engine.file_storage import FileStorage

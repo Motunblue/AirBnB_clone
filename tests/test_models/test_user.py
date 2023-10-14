@@ -2,9 +2,9 @@
 """
     Unittests for module models/user,py
 """
+import unittest
 from models.user import User
 from models.base_model import BaseModel
-import unittest
 import datetime
 
 
@@ -34,5 +34,5 @@ class TestUserInstantiation(unittest.TestCase):
         u.first_name = "unittest"
         u.last_name = "Airbnb"
 
-        self.assertTrue(hasattr("created_at", u))
-        self.assertTrue(hasattr("updated_at", u))
+        self.assertTrue(hasattr(u, "created_at"))
+        self.assertTrue(hasattr(u, "updated_at"))

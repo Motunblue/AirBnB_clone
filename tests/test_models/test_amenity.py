@@ -2,9 +2,9 @@
 """
     Unittests for module models/amenity.py
 """
+import unittest
 from models.amenity import Amenity
 from models.base_model import BaseModel
-import unittest
 import os
 from models import storage
 from models.engine.file_storage import FileStorage

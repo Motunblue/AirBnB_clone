@@ -2,9 +2,9 @@
 """
     Unittests for module models/place,py
 """
+import unittest
 from models.place import Place
 from models.base_model import BaseModel
-import unittest
 import os
 from models import storage
 from models.engine.file_storage import FileStorage
