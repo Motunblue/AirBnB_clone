@@ -4,7 +4,6 @@
 """
 from models.city import City
 from models.base_model import BaseModel
-import unittest
 
 
 class TestCityInstantiation(unittest.TestCase):
