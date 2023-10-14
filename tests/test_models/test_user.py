@@ -4,7 +4,6 @@
 """
 from models.user import User
 from models.base_model import BaseModel
-import unittest
 
 
 class TestUserInstantiation(unittest.TestCase):
