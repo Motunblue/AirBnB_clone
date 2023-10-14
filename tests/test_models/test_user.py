@@ -36,3 +36,7 @@ class TestUserInstantiation(unittest.TestCase):
 
         self.assertTrue(hasattr(u, "created_at"))
         self.assertTrue(hasattr(u, "updated_at"))
+
+
+if __name__ == "__main__":
+    unittest.main()
