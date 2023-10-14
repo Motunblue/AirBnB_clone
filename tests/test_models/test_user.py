@@ -1,27 +1,57 @@
 #!/usr/bin/python3
-"""
-    Unittests for module models/user,py
-"""
+
+import unittest
+import os
 from models.user import User
 from models.base_model import BaseModel
-import unittest
-import datetime
 
 
-class TestUserInstantiation(unittest.TestCase):
-    """Test instantiation of User class"""
-    def test_subclass_of(self):
-        """Test if instance is subclass of BaseModel"""
-        u = User()
-        self.assertIsInstance(u, BaseModel)
-        self.assertIsInstance(u, User)
+class TestUser(unittest.TestCase):
 
-    def test_no_arg(self):
-        """Test without any argument"""
-        u = User()
-        self.assertIn("created_at", u.__dict__)
-        self.assertIn("updated_at", u.__dict__)
-        self.assertIn("id", u.__dict__)
-        self.assertIsInstance(u.id, str)
-        self.assertIsInstance(u.created_at, datetime.datetime)
-        self.assertIsInstance(u.updated_at, datetime.datetime)
+    @classmethod
+    def setUpClass(cls):
+        cls.my_user = User()
+        cls.my_user.first_name = "Betty"
+        cls.my_user.last_name = "Holberton"
+        cls.my_user.email = "airbnb@holbertonshool.com"
+        cls.my_user.password = "root"
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls.my_user
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
+    def test_is_subclass(self):
+        self.assertTrue(issubclass(self.my_user.__class__, BaseModel), True)
+
+    def test_checking_for_functions(self):
+        self.assertIsNotNone(User.__doc__)
+
+    def test_has_attributes(self):
+        self.assertTrue('email' in self.my_user.__dict__)
+        self.assertTrue('id' in self.my_user.__dict__)
+        self.assertTrue('created_at' in self.my_user.__dict__)
+        self.assertTrue('updated_at' in self.my_user.__dict__)
+        self.assertTrue('password' in self.my_user.__dict__)
+        self.assertTrue('first_name' in self.my_user.__dict__)
+        self.assertTrue('last_name' in self.my_user.__dict__)
+
+    def test_attributes_are_strings(self):
+        self.assertEqual(type(self.my_user.email), str)
+        self.assertEqual(type(self.my_user.password), str)
+        self.assertEqual(type(self.my_user.first_name), str)
+        self.assertEqual(type(self.my_user.first_name), str)
+
+    def test_save(self):
+        self.my_user.save()
+        self.assertNotEqual(self.my_user.created_at, self.my_user.updated_at)
+
+    def test_to_dict(self):
+        self.assertEqual('to_dict' in dir(self.my_user), True)
+
+
+if __name__ == "__main__":
+    unittest.main()
