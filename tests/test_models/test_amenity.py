@@ -5,6 +5,7 @@
 from models.amenity import Amenity
 from models.base_model import BaseModel
 
+
 class TestAmenityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
     c = Amenity()

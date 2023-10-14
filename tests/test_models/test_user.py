@@ -5,6 +5,7 @@
 from models.user import User
 from models.base_model import BaseModel
 
+
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
     c = User()

@@ -5,6 +5,7 @@
 from models.review import Review
 from models.base_model import BaseModel
 
+
 class TestReviewInstantiation(unittest.TestCase):
     """Test instantiation of Review class"""
     c = Review()

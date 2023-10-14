@@ -51,17 +51,21 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(b, "created_at"))
         self.assertFalse(hasattr(b, "updated_at"))
 
-        b = BaseModel(id=2, created_at="2023-10-13T18:33:54.505580", updated_at="2023-10-13T18:33:54.505580")
+        b = BaseModel(
+                id=2, created_at="2023-10-13T18:33:54.505580",
+                updated_at="2023-10-13T18:33:54.505580")
         self.assertTrue(hasattr(b, "id"))
         self.assertEqual(b.id, 2)
         self.assertTrue(hasattr(b, "created_at"))
         self.assertTrue(hasattr(b, "updated_at"))
-        
-        b = BaseModel(id=2, created_at="2023-10-13T18:33:54.505580", updated_at="2023-10-13T18:33:54.505580", name="Airbnb")
+
+        b = BaseModel(
+                id=2, created_at="2023-10-13T18:33:54.505580",
+                updated_at="2023-10-13T18:33:54.505580", name="Airbnb")
         self.assertTrue(hasattr(b, "id"))
         self.assertEqual(b.id, 2)
         self.assertTrue(hasattr(b, "created_at"))
-        self.assertTrue(hasattr(b, "updated_at")) 
+        self.assertTrue(hasattr(b, "updated_at"))
         self.assertTrue(hasattr(b, "name"))
         self.assertEqual(b.name, "Airbnb")
 
@@ -94,7 +98,7 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertFalse(hasattr(b, "id"))
 
     def test_inf_arg(self):
-        b= BaseModel(float('inf'))
+        b = BaseModel(float('inf'))
         self.assertTrue(hasattr(b, "updated_at"))
         self.assertTrue(hasattr(b, "created_at"))
         self.assertTrue(hasattr(b, "id"))
@@ -105,7 +109,7 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertFalse(hasattr(b, "id"))
 
     def test_nan_arg(self):
-        b= BaseModel(float('nan'))
+        b = BaseModel(float('nan'))
         self.assertTrue(hasattr(b, "updated_at"))
         self.assertTrue(hasattr(b, "created_at"))
         self.assertTrue(hasattr(b, "id"))
@@ -158,11 +162,10 @@ class TestBaseModelStrMethod(unittest.TestCase):
         self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
 
         b = BaseModel(id=[1, 2])
-        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}") 
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
 
         b = BaseModel(id=(1, 2))
         self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
-
 
     def test_using_str(self):
         """Test str method using __str__"""
@@ -172,7 +175,9 @@ class TestBaseModelStrMethod(unittest.TestCase):
         b = BaseModel()
         # Test __str__ with arguments
         with self.assertRaises(TypeError):
-            self.assertEqual(b.__str__(23), f"[BaseModel] ({b.id}) {b.__dict__}")
+            self.assertEqual(
+                    b.__str__(23), f"[BaseModel] ({b.id}) {b.__dict__}")
+
 
 class TestBaseModelSave(unittest.TestCase):
     """Test the save method of BaseModel"""
@@ -192,6 +197,7 @@ class TestBaseModelSave(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             b.save("2023-13-12")
+
 
 class TestBaseModelToDict(unittest.TestCase):
     """Test the to_dict method of BaseModel"""
@@ -286,8 +292,6 @@ class TestBaseModelToDict(unittest.TestCase):
         self.assertEqual(my_dict1["created_at"], my_dict2["created_at"])
         self.assertEqual(my_dict1["updated_at"], my_dict2["updated_at"])
         self.assertDictEqual(my_dict1, my_dict2)
-
-
 
 
 if __name__ == '__main__':

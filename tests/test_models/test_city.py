@@ -5,6 +5,7 @@
 from models.city import City
 from models.base_model import BaseModel
 
+
 class TestCityInstantiation(unittest.TestCase):
     """Test instantiation of city class"""
     c = City()
