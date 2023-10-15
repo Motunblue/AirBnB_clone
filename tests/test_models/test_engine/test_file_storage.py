@@ -116,3 +116,16 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"Review.{r.id}", dic.keys())
         self.assertIn(f"State.{s.id}", dic.keys())
         self.assertIn(f"User.{u.id}", dic.keys())
+
+    def test_methods_with_args(self):
+        with self.assertRaises(TypeError):
+            storage.new(a, "True")
+
+        with self.assertRaises(TypeError):
+            storage.all(None)
+
+        with self.assertRaises(TypeError):
+            storage.save(10)
+
+        with self.assertRaises(TypeError):
+            storage.reload(4)
