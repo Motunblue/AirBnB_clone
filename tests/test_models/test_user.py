@@ -7,7 +7,9 @@ from models.user import User
 from models.base_model import BaseModel
 import datetime
 from time import sleep
-
+from models import storage
+from models.engine.file_storage import FileStorage
+import os
 
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
@@ -26,6 +28,13 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertIsInstance(u.id, str)
         self.assertIsInstance(u.created_at, datetime.datetime)
         self.assertIsInstance(u.updated_at, datetime.datetime)
+
+    def test_user_attr_with_default(self):
+        user = User()
+        self.assertEqual(user.email, "")
+        self.assertEqual(user.password, "")
+        self.assertEqual(user.first_name, "")
+        self.assertEqual(user.last_name, "")
 
     def test_set_attr(self):
         """Test for setting attr"""
@@ -80,5 +89,15 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(User, "first_name"))
         self.assertTrue(hasattr(User, "last_name"))
 
+        
+class TestUserSave(unittest.TestCase):
+
+    def tearDown(self):
+        """Rest json file"""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
+    
 if __name__ == "__main__":
     unittest.main()
