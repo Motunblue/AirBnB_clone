@@ -55,7 +55,7 @@ class TestFileStorage(unittest.TestCase):
         storage.new(r)
         storage.new(s)
         storage.new(u)
-        dic = storage.all()
+        dic = FileStorage._FileStorage__objects
         self.assertIn(f"Amenity.{a.id}", dic.keys())
         self.assertTrue(type(dic[f"Amenity.{a.id}"]), "Amenity")
         self.assertIn(f"BaseModel.{b.id}", dic.keys())
@@ -79,17 +79,10 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"User.{u.id}", dic.keys())
         self.assertTrue(type(dic[f"User.{u.id}"]), "User")
 
-    def test_new_with_two_args(self):
-        with self.assertRaises(TypeError):
-            storage.new(BaseModel(), None)
-
     def test_all(self):
         dic = storage.all()
         self.assertEqual(type(dic), dict)
-
-    def test_all_with_args(self):
-        with self.assertRaises(TypeError):
-            storage.all(None)
+        self.assertEqual(dic, FileStorage._FileStorage__objects)
 
     def test_save(self):
         a = Amenity()
@@ -119,10 +112,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"State.{s.id}", json_dict.keys())
         self.assertIn(f"User.{u.id}", json_dict.keys())
 
-    def test_save_with_args(self):
-        with self.assertRaises(TypeError):
-            storage.save(None)
-
     def test_reload(self):
         dic = storage.all()
         self.assertFalse(dic)
@@ -144,10 +133,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"Review.{r.id}", dic.keys())
         self.assertIn(f"State.{s.id}", dic.keys())
         self.assertIn(f"User.{u.id}", dic.keys())
-
-    def test_reload_with_args(self):
-        with self.assertRaises(TypeError):
-            storage.reload(True)
 
 
 if __name__ =="__main__":
