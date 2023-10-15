@@ -126,7 +126,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"User.{u.id}", dic.keys())
 
     def test_methods_with_args(self):
-        a = User()
         with self.assertRaises(TypeError):
             storage.new(a, "True")
 
