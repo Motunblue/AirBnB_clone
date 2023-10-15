@@ -67,6 +67,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"User.{u.id}", dict.keys())
         self.assertTrue(type(dict[f"User.{u.id}"]), "User")
 
+        u = User()
+        u.id = 23
+        u.name = "AirBnB"
+        storage.new(u)
+
+        self.assertIn(f"User.{u.id}", dict.keys())
+        self.assertTrue(type(dict[f"User.{u.id}"]), "User")
+
     def test_save(self):
         a = Amenity()
         b = BaseModel()
