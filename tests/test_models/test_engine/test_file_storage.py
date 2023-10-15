@@ -30,6 +30,10 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(s), FileStorage)
         self.assertIsInstance(s, FileStorage)
 
+    def test_instantiation_with_args(self):
+        with self.assertRaises(TypeError):
+            FileStorage(True)
+
     def test_storage_private_attr_type(self):
         s = FileStorage()
         self.assertTrue(type(s.__class__._FileStorage__objects), dict)
