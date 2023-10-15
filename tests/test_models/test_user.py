@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
     Unittests for module models/user,py
 """
@@ -36,6 +36,7 @@ class TestUserInstantiation(unittest.TestCase):
 
         self.assertTrue(hasattr(u, "created_at"))
         self.assertTrue(hasattr(u, "updated_at"))
+
 
 if __name__ == "__main__":
     unittest.main()
