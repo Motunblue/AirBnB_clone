@@ -36,10 +36,29 @@ class TestUserInstantiation(unittest.TestCase):
 
         self.assertTrue(hasattr(u, "created_at"))
         self.assertTrue(hasattr(u, "updated_at"))
-        self.assertTrue(hasattr(u, "updated_at"))
-        self.assertTrue(hasattr(u, "updated_at"))
-        self.assertTrue(hasattr(u, "updated_at"))
-        self.assertTrue(hasattr(u, "updated_at"))
+        self.assertTrue(hasattr(u, "email"))
+        self.assertTrue(hasattr(u, "password"))
+        self.assertTrue(hasattr(u, "first_name"))
+        self.assertTrue(hasattr(u, "last_name"))
+        self.assertTrue(hasattr(u, "id"))
+
+        self.assertEqual(type(u.email), str)
+        self.assertEqual(type(u.password), str)
+        self.assertEqual(type(u.first_name), str)
+        self.assertEqual(type(u.last_name), str)
+
+    def test_save_method(self):
+        """Test inherited save method"""
+        u = User()
+        t1 = u.updated_at
+        u.save()
+        t2 = u.updated_at
+        self.assertNotEqual(t1, t2)
+
+    def test_to_dict(self):
+        """Test inherited to_dict method"""
+        u = User()
+        self.assertEqual('to_dict' in dir(u), True)
 
 
 if __name__ == "__main__":
