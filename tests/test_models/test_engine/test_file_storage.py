@@ -35,7 +35,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(type(s.__class__._FileStorage__objects), dict)
         self.assertTrue(type(s.__class__._FileStorage__file_path), str)
 
-    def test_new_and_all(self):
+    def test_new(self):
         a = Amenity()
         b = BaseModel()
         c = City()
@@ -52,7 +52,6 @@ class TestFileStorage(unittest.TestCase):
         storage.new(s)
         storage.new(u)
         dic = storage.all()
-        self.assertEqual(type(dic), dict)
         self.assertIn(f"Amenity.{a.id}", dic.keys())
         self.assertTrue(type(dic[f"Amenity.{a.id}"]), "Amenity")
         self.assertIn(f"BaseModel.{b.id}", dic.keys())
@@ -75,6 +74,10 @@ class TestFileStorage(unittest.TestCase):
 
         self.assertIn(f"User.{u.id}", dic.keys())
         self.assertTrue(type(dic[f"User.{u.id}"]), "User")
+
+    def test_all(self):
+        dic = storage.all()
+        self.assertEqual(type(dic), dict)        
 
     def test_save(self):
         a = Amenity()
