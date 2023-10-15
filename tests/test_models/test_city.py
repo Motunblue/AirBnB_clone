@@ -45,5 +45,6 @@ class TestCityInstantiation(unittest.TestCase):
         self.assertEqual(type(c.name), str)
         self.assertEqual(type(c.state_id), str)
 
+
 if __name__ == "__main__":
     unittest.main()

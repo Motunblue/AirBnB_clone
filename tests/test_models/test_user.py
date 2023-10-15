@@ -87,7 +87,6 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(User, "first_name"))
         self.assertTrue(hasattr(User, "last_name"))
 
-        
-    
+
 if __name__ == "__main__":
     unittest.main()

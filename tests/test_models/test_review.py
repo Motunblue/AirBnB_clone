@@ -40,6 +40,5 @@ class TestReviewInstantiation(unittest.TestCase):
         self.assertEqual(c.text, "Good")
 
 
-
 if __name__ == "__main__":
     unittest.main()
