@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(cls_name, cls_id)
         try:
             del objs[key]
-            objs.save()
+            storage.save()
 
         except KeyError:
             print("** no instance found **")
@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
         if key in my_dict:
             obj = my_dict[key]
             setattr(obj, attr_name, val)
-            storage.save()
+            obj.save()
         else:
             print("** no instance found **")
 
