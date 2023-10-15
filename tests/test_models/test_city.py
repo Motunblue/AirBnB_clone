@@ -23,6 +23,7 @@ class TestCityInstantiation(unittest.TestCase):
     def test_no_args(self):
         a = City()
         self.assertIsInstance(a, City)
+        self.assertIsInstance(a, BaseModel)
         self.assertTrue(issubclass(type(a), BaseModel))
         self.assertTrue(hasattr(a, "id"))
         self.assertTrue(hasattr(a, "updated_at"))
@@ -37,6 +38,12 @@ class TestCityInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(a, "state_id"))
         self.assertEqual(a.state_id, "+234LA")
 
+    def test_attr_with_default(self):
+        c = City()
+        self.assertEqual(c.name, "")
+        self.assertEqual(c.state_id, "")
+        self.assertEqual(type(c.name), str)
+        self.assertEqual(type(c.state_id), str)
 
 if __name__ == "__main__":
     unittest.main()
