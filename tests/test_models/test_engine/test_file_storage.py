@@ -30,13 +30,13 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(s), FileStorage)
         self.assertIsInstance(s, FileStorage)
 
+    def test_instantiation_with_args(self):
+        with self.assertRaises(TypeError):
+            FileStorage(None)
 
     def test_storage_private_attr_dict(self):
         s = FileStorage()
         self.assertTrue(type(s.__class__._FileStorage__objects), dict)
-
-    def test_storage_private_attr_path(self):
-        s = FileStorage()
         self.assertTrue(type(s.__class__._FileStorage__file_path), str)
 
     def test_new(self):
@@ -79,9 +79,17 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"User.{u.id}", dic.keys())
         self.assertTrue(type(dic[f"User.{u.id}"]), "User")
 
+    def test_new_with_two_args(self):
+        with self.assertRaises(TypeError):
+            storage.new(BaseModel(), None)
+
     def test_all(self):
         dic = storage.all()
-        self.assertEqual(type(dic), dict)        
+        self.assertEqual(type(dic), dict)
+
+    def test_all_with_args(self):
+        with self.assertRaises(TypeError):
+            storage.all(None)
 
     def test_save(self):
         a = Amenity()
@@ -111,6 +119,10 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"State.{s.id}", json_dict.keys())
         self.assertIn(f"User.{u.id}", json_dict.keys())
 
+    def test_save_with_args(self):
+        with self.assertRaises(TypeError):
+            storage.save(None)
+
     def test_reload(self):
         dic = storage.all()
         self.assertFalse(dic)
@@ -133,19 +145,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"State.{s.id}", dic.keys())
         self.assertIn(f"User.{u.id}", dic.keys())
 
-    def test_methods_with_args(self):
-        a = BaseModel()
+    def test_reload_with_args(self):
         with self.assertRaises(TypeError):
-            storage.new(a, "True")
-
-        with self.assertRaises(TypeError):
-            storage.all(None)
-
-        with self.assertRaises(TypeError):
-            storage.save(10)
-
-        with self.assertRaises(TypeError):
-            storage.reload(4)
+            storage.reload(True)
 
 
 if __name__ =="__main__":
