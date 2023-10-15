@@ -7,9 +7,7 @@ from models.user import User
 from models.base_model import BaseModel
 import datetime
 from time import sleep
-from models import storage
-from models.engine.file_storage import FileStorage
-import os
+
 
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
@@ -90,14 +88,6 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(User, "last_name"))
 
         
-class TestUserSave(unittest.TestCase):
-
-    def tearDown(self):
-        """Rest json file"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
     
 if __name__ == "__main__":
     unittest.main()
