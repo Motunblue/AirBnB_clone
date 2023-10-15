@@ -6,7 +6,7 @@ import unittest
 from models.user import User
 from models.base_model import BaseModel
 import datetime
-
+from time import sleep
 
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
@@ -35,6 +35,10 @@ class TestUserInstantiation(unittest.TestCase):
         u.last_name = "Airbnb"
 
         self.assertTrue(hasattr(u, "created_at"))
+        self.assertTrue(hasattr(u, "updated_at"))
+        self.assertTrue(hasattr(u, "updated_at"))
+        self.assertTrue(hasattr(u, "updated_at"))
+        self.assertTrue(hasattr(u, "updated_at"))
         self.assertTrue(hasattr(u, "updated_at"))
 
 if __name__ == "__main__":
