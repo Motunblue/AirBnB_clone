@@ -43,6 +43,14 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertTrue(hasattr(u, "last_name"))
         self.assertTrue(hasattr(u, "id"))
 
+        self.assertTrue('email' in u.__dict__)
+        self.assertTrue('id' in u.__dict__)
+        self.assertTrue('created_at' in u.__dict__)
+        self.assertTrue('updated_at' in u.__dict__)
+        self.assertTrue('password' in u.__dict__)
+        self.assertTrue('first_name' in u.__dict__)
+        self.assertTrue('last_name' in u.__dict__)
+
         self.assertEqual(type(u.email), str)
         self.assertEqual(type(u.password), str)
         self.assertEqual(type(u.first_name), str)
