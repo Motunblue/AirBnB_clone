@@ -73,6 +73,12 @@ class TestUserInstantiation(unittest.TestCase):
         """Test class docstring"""
         self.assertIsNotNone(User.__doc__)
 
+    def test_class_attribute(self):
+        """Test class attributes"""
+        self.assertTrue(hasattr(User, "email"))
+        self.assertTrue(hasattr(User, "password"))
+        self.assertTrue(hasattr(User, "first_name"))
+        self.assertTrue(hasattr(User, "last_name"))
 
 if __name__ == "__main__":
     unittest.main()
