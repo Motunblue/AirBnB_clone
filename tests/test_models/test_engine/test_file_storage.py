@@ -51,29 +51,30 @@ class TestFileStorage(unittest.TestCase):
         storage.new(r)
         storage.new(s)
         storage.new(u)
-        dict = storage.all()
-        self.assertIn(f"Amenity.{a.id}", dict.keys())
-        self.assertTrue(type(dict[f"Amenity.{a.id}"]), "Amenity")
-        self.assertIn(f"BaseModel.{b.id}", dict.keys())
-        self.assertTrue(type(dict[f"BaseModel.{b.id}"]), "BaseModel")
-        self.assertIn(f"City.{c.id}", dict.keys())
-        self.assertTrue(type(dict[f"City.{c.id}"]), "City")
-        self.assertIn(f"Place.{p.id}", dict.keys())
-        self.assertTrue(type(dict[f"Place.{p.id}"]), "Place")
-        self.assertIn(f"Review.{r.id}", dict.keys())
-        self.assertTrue(type(dict[f"Review.{r.id}"]), "Review")
-        self.assertIn(f"State.{s.id}", dict.keys())
-        self.assertTrue(type(dict[f"State.{s.id}"]), "State")
-        self.assertIn(f"User.{u.id}", dict.keys())
-        self.assertTrue(type(dict[f"User.{u.id}"]), "User")
+        dic = storage.all()
+        self.assertEqual(type(dic), dict)
+        self.assertIn(f"Amenity.{a.id}", dic.keys())
+        self.assertTrue(type(dic[f"Amenity.{a.id}"]), "Amenity")
+        self.assertIn(f"BaseModel.{b.id}", dic.keys())
+        self.assertTrue(type(dic[f"BaseModel.{b.id}"]), "BaseModel")
+        self.assertIn(f"City.{c.id}", dic.keys())
+        self.assertTrue(type(dic[f"City.{c.id}"]), "City")
+        self.assertIn(f"Place.{p.id}", dic.keys())
+        self.assertTrue(type(dic[f"Place.{p.id}"]), "Place")
+        self.assertIn(f"Review.{r.id}", dic.keys())
+        self.assertTrue(type(dic[f"Review.{r.id}"]), "Review")
+        self.assertIn(f"State.{s.id}", dic.keys())
+        self.assertTrue(type(dic[f"State.{s.id}"]), "State")
+        self.assertIn(f"User.{u.id}", dic.keys())
+        self.assertTrue(type(dic[f"User.{u.id}"]), "User")
 
         u = User()
         u.id = 23
         u.name = "AirBnB"
         storage.new(u)
 
-        self.assertIn(f"User.{u.id}", dict.keys())
-        self.assertTrue(type(dict[f"User.{u.id}"]), "User")
+        self.assertIn(f"User.{u.id}", dic.keys())
+        self.assertTrue(type(dic[f"User.{u.id}"]), "User")
 
     def test_save(self):
         a = Amenity()
@@ -138,3 +139,7 @@ class TestFileStorage(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             storage.reload(4)
+
+
+if __name__ =="__main__":
+    unittest.main()
