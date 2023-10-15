@@ -61,6 +61,10 @@ class TestUserInstantiation(unittest.TestCase):
         u = User()
         self.assertEqual('to_dict' in dir(u), True)
 
+    def test_doc_string(self):
+        """Test class docstring"""
+        self.assertIsNotNone(User.__doc__)
+
 
 if __name__ == "__main__":
     unittest.main()
