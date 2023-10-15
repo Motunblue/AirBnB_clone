@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(cls_name, cls_id)
         try:
             del objs[key]
-            storage.save()
+            objs.save()
 
         except KeyError:
             print("** no instance found **")
