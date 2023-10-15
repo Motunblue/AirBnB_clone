@@ -8,6 +8,7 @@ from models.base_model import BaseModel
 import datetime
 from time import sleep
 
+
 class TestUserInstantiation(unittest.TestCase):
     """Test instantiation of User class"""
     def test_subclass_of(self):
