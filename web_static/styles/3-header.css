@@ -4,9 +4,13 @@ header {
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
     display: flex;
-    align-items: center;
+    align-items: center;  
 }
-.logo {
+
+header .logo {
+    width: 142.11px;
+    height: 60.09px;
     position: relative;
     margin-left: 20px;
+    background-image: url("../images/logo.png");
 }
